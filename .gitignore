@@ -3,3 +3,5 @@
 *.wav
 
 captures/
+
+*__pycache__/
