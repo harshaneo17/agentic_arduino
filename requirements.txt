@@ -1,0 +1,8 @@
+pyserial
+langchain 
+langchain-anthropic 
+langgraph 
+opencv-python
+pyaudio
+openai-whisper 
+python-dotenv
