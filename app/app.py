@@ -18,9 +18,9 @@ from langchain_anthropic import ChatAnthropic
 from langchain.agents import create_agent
 
 
-# ============================================================
+
 # Hardware setup
-# ============================================================
+
 
 # Serial to Arduino
 SERIAL_PORT = '/dev/ttyACM0'
@@ -58,9 +58,9 @@ IMAGE_DIR = Path("./captures")
 IMAGE_DIR.mkdir(exist_ok=True)
 
 
-# ============================================================
+
 # Helpers
-# ============================================================
+
 
 def send_command(command: str) -> str:
     """Send a command to Arduino and return the response."""
@@ -200,9 +200,9 @@ def get_voice_input(duration: int = 5) -> str:
     return text
 
 
-# ============================================================
+
 # Sensor and actuator tools
-# ============================================================
+
 
 @tool
 def read_temperature() -> str:
@@ -292,9 +292,9 @@ def get_environmental_state() -> str:
     )
 
 
-# ============================================================
+
 # Vision tools
-# ============================================================
+
 
 @tool
 def look_around() -> str:
@@ -441,9 +441,9 @@ def compare_to_previous_view(time_description: str) -> str:
     return f"Change detection: {response.content}"
 
 
-# ============================================================
+
 # Agent setup
-# ============================================================
+
 
 llm = ChatAnthropic(
     model="claude-sonnet-4-5",
@@ -469,7 +469,7 @@ tools_list = [
     compare_to_previous_view,
 ]
 
-system_prompt = """You are an embodied AI agent with sensors, actuators, and vision.
+system_prompt = """You are an embodied AI agent called HAL:9000 with sensors, actuators, and vision.
 
 Available capabilities:
 - Sensors: temperature, humidity, ultrasonic distance
@@ -494,9 +494,9 @@ When asked to find or identify something, use look_for_object.
 agent = create_agent(llm, tools_list, system_prompt=system_prompt)
 
 
-# ============================================================
+
 # Main loop
-# ============================================================
+
 
 def run_command(user_input: str):
     """Run a user command through the agent."""
@@ -510,13 +510,13 @@ def run_command(user_input: str):
         "messages": [("user", user_input)]
     })
     
-    for message in result["messages"]:
-        if hasattr(message, 'content') and message.content:
-            role = message.__class__.__name__
-            print(f"\n[{role}]: {message.content}")
-        if hasattr(message, 'tool_calls') and message.tool_calls:
-            for tc in message.tool_calls:
-                print(f"\n[TOOL]: {tc['name']}({tc['args']})")
+    # for message in result["messages"]:
+    #     if hasattr(message, 'content') and message.content:
+    #         role = message.__class__.__name__
+    #         print(f"\n[{role}]: {message.content}")
+    #     if hasattr(message, 'tool_calls') and message.tool_calls:
+    #         for tc in message.tool_calls:
+    #             print(f"\n[TOOL]: {tc['name']}({tc['args']})")
     
     final_message = result["messages"][-1]
     final_response = final_message.content if hasattr(final_message, 'content') else str(final_message)
@@ -527,9 +527,9 @@ def run_command(user_input: str):
 
 
 if __name__ == "__main__":
-    print("\nVision-enabled agent ready.\n")
+    print("\nVision-enabled HAL:9000 ready.\n")
     print("Commands: type a prompt, or 'hal' to speak, 'quit' to exit\n")
-    write_to_lcd("Agent ready")
+    write_to_lcd("HAL:9000 ready")
     
     try:
         while True:
@@ -539,12 +539,12 @@ if __name__ == "__main__":
                 break
             
             if user_input.lower() in ['hal', 'h']:
-                write_to_lcd("Yes, Dave?")
+                write_to_lcd("Yes, Harsha?")
                 time.sleep(1)
                 user_input = get_voice_input(duration=5)
                 if not user_input:
-                    print("I'm sorry, Dave. I'm afraid I can't do that.")
-                    write_to_lcd("Didn't catch that")
+                    print("I'm sorry, Harsha. I'm afraid I can't do that.")
+                    write_to_lcd("I'm sorry, Harsha. I'm afraid I can't do that.")
                     continue
                 print(f"HAL heard: {user_input}")
             
@@ -559,7 +559,7 @@ if __name__ == "__main__":
                 print(f"\nERROR: {e}")
     
     finally:
-        write_to_lcd("Agent offline")
+        write_to_lcd("HAL:9000 offline")
         time.sleep(1)
         webcam.release()
         ser.close()

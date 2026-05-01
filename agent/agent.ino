@@ -3,9 +3,9 @@
 #include <Servo.h>
 #include "pitches.h"
 
-// ============================================================
-// Pin definitions and component setup
-// ============================================================
+
+// Pin definitions
+
 
 #define DHT11_PIN 2
 #define LED_PIN 13
@@ -24,9 +24,9 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 int melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
 int noteDurations[] = {4, 8, 8, 4, 4, 4, 4, 4};
 
-// ============================================================
+
 // Setup
-// ============================================================
+
 
 void setup() {
   Serial.begin(9600);
@@ -36,7 +36,7 @@ void setup() {
   pinMode(echoPin, INPUT);
   
   myservo.attach(SERVO_PIN);
-  myservo.write(90);  // Centre position at start
+  myservo.write(0); 
   
   lcd.begin(16, 2);
   lcd.print("Agent ready");
@@ -46,9 +46,9 @@ void setup() {
   Serial.println("READY");
 }
 
-// ============================================================
-// Component functions - one for each capability
-// ============================================================
+
+// Component functions 
+
 
 float readTemperature() {
   int chk = DHT.read11(DHT11_PIN);
@@ -69,7 +69,7 @@ long readDistance() {
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
   
-  long duration = pulseIn(echoPin, HIGH, 30000);  // 30ms timeout
+  long duration = pulseIn(echoPin, HIGH, 30000);
   if (duration == 0) return -1;
   
   long distance = (duration * 0.0343) / 2;
@@ -87,7 +87,7 @@ void setLed(bool state) {
 
 void playBuzzerSimple(int duration_ms) {
   duration_ms = constrain(duration_ms, 100, 5000);
-  tone(BUZZER_PIN, 1000);  // Simple 1kHz tone
+  tone(BUZZER_PIN, 1000);  
   delay(duration_ms);
   noTone(BUZZER_PIN);
 }
@@ -118,9 +118,9 @@ void displayOnLcd(String text) {
   }
 }
 
-// ============================================================
-// Command parser - this is what the Python agent talks to
-// ============================================================
+
+// Command parser 
+
 
 void processCommand(String command) {
   command.trim();
@@ -190,9 +190,9 @@ void processCommand(String command) {
   }
 }
 
-// ============================================================
+
 // Main loop - just listens for commands
-// ============================================================
+
 
 void loop() {
   if (Serial.available() > 0) {
