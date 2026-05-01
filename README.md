@@ -8,7 +8,7 @@ The agentic AI is anthropic claude model with langchain framework.
 
 The workflow is as follows. 
 
-<img src="assets/agent_workflow.jpg" width="512">
+<img src="assets/agent_workflow.jpg" width="768">
 
 raspberry pi takes input from user, forwards that to the LLM on cloud.
 
