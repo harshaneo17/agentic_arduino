@@ -15,10 +15,7 @@ from langchain_anthropic import ChatAnthropic
 import config
 import hardware
 
-
-
 # Serial communication
-
 
 def send_command(command: str) -> str:
     """Send a command to Arduino and return the response."""
@@ -37,13 +34,10 @@ def write_to_lcd(message: str) -> str:
     """Write a message to the LCD with safe truncation."""
     if len(message) > config.LCD_MAX_CHARS:
         message = message[:config.LCD_MAX_CHARS - 3] + "..."
-    safe_message = message.replace(":", "-")  # Avoid breaking the protocol
+    safe_message = message.replace(":", "-") 
     return send_command(f"LCD:{safe_message}")
 
-
-
 # Image capture and encoding
-
 
 def capture_image() -> str:
     """Capture an image from the webcam. Returns the file path."""
@@ -67,10 +61,7 @@ def encode_image_to_base64(image_path: str) -> str:
     with open(image_path, "rb") as f:
         return base64.standard_b64encode(f.read()).decode("utf-8")
 
-
-
 # Vision LLM calls
-
 
 def analyse_image_with_claude(image_path: str, question: str) -> str:
     """Send a single image to Claude with a question and return the analysis."""
@@ -141,10 +132,7 @@ def compare_images_with_claude(
     
     return response.content
 
-
-
 # Output summarisation
-
 
 def summarise_for_lcd(full_response: str, llm) -> str:
     """Compress a response to LCD-friendly length using the LLM itself."""
@@ -159,10 +147,7 @@ def summarise_for_lcd(full_response: str, llm) -> str:
     
     return summary_response.content.strip()[:config.LCD_MAX_CHARS]
 
-
-
 # Audio recording and transcription
-
 
 def record_audio(filename: str = "input.wav", duration: int = None) -> str:
     """Record audio from default microphone for specified duration."""

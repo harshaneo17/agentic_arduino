@@ -41,7 +41,7 @@ def init_hardware():
     webcam = cv2.VideoCapture(config.WEBCAM_INDEX)
     webcam.set(cv2.CAP_PROP_FRAME_WIDTH, config.WEBCAM_WIDTH)
     webcam.set(cv2.CAP_PROP_FRAME_HEIGHT, config.WEBCAM_HEIGHT)
-    time.sleep(2)  # Camera warm-up
+    time.sleep(2)  
     
     if not webcam.isOpened():
         raise RuntimeError(

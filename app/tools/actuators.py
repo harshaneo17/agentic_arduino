@@ -60,8 +60,6 @@ def play_buzzer(duration_ms: int) -> str:
 @tool
 def display_message(message: str) -> str:
     """Display a status message on the LCD during a task. Max 32 characters.
-    Use this for status updates DURING a task. Final responses are
-    automatically displayed by the system.
     
     Args:
         message: Text to display
