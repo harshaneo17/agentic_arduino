@@ -2,7 +2,7 @@
 
 Hal_9000 from 2001: A space odyssey. 
 
-link to the video: [youtube (https://www.youtube.com/watch?v=KZusoWbbVcc&t=64s)][youtube]
+link to the video: [youtube](https://www.youtube.com/watch?v=KZusoWbbVcc&t=64s)
 
 <img src="assets/hal-9000.png" width="768">
 
