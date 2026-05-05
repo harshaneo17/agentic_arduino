@@ -2,7 +2,7 @@
 
 Hal_9000 from 2001: A space odyssey. 
 
-<img src="assets/Hal_9000_Panel.png" width="250">
+<img src="assets/hal-9000.png" width="250">
 
 The agentic AI is anthropic claude model with langchain framework.
 
